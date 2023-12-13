@@ -5,15 +5,11 @@ let playerPattern = [];
 let started = false;
 
 $(document).keypress(function () {
-  if (!started) {
-    $("#level-title").text("Level " + currentLevel);
-    $("h3").addClass("d-none");
-    $(".pre").remove();
-    $(".pre-txt").remove();
-    $(".point-txt").remove();
-    generateLevel();
-    started = true;
-  }
+    startLevel();
+});
+
+$("a").click(function () {
+    startLevel();
 });
 
 $(".btn").click(function () {
@@ -25,6 +21,18 @@ $(".btn").click(function () {
 
   validateLevel(playerPattern.length - 1);
 });
+
+function startLevel() {
+  if (!started) {
+    $("#level-title").text("Level " + currentLevel);
+    $("h3").addClass("d-none");
+    $(".pre").remove();
+    $(".pre-txt").remove();
+    $(".point-txt").remove();
+    generateLevel();
+    started = true;
+  }
+}
 
 function validateLevel(currentPattern) {
   if (gamePattern[currentPattern] === playerPattern[currentPattern]) {
@@ -39,7 +47,7 @@ function validateLevel(currentPattern) {
       $("body").addClass("game-over");
       $("h3").removeClass("d-none");
       $("#level-title").text("You reach Level " + currentLevel);
-      $("#level-sub-title").text("Press Any Key to Restart");
+      $("#level-sub-title").text("Press Any Key or Touch here to Restart");
       gamePattern.reverse();
       $.each(gamePattern, function (index, value) {
           $(".level-sub-title").after("<div class='pre " + value + "'></div>");
